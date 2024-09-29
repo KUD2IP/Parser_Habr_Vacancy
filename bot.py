@@ -56,12 +56,6 @@ def set_salary_filter(user_id, salary_from, salary_to):
     user_filters[user_id]['salary_to'] = salary_to
 
 
-def set_schedule_filter(user_id, schedule):
-    if user_id not in user_filters:
-        user_filters[user_id] = {}
-    user_filters[user_id]['schedule'] = schedule
-
-
 def set_filter(user_id, filter_name, *values):
     if user_id not in user_filters:
         user_filters[user_id] = {}
@@ -166,24 +160,19 @@ def resume_sending(message):
 
 
 def generate_markdown_vacancy_message(vacancy):
-    if len(vacancy) < 9:
-        raise ValueError("Expected 9 values from the query result, got less. Received: {}".format(vacancy))
-    name, salary_from, salary_to, salary_currency, employer, area_name, url, schedule, experience = vacancy
+    if len(vacancy) < 6:
+        raise ValueError("Expected 6 values from the query result, got less. Received: {}".format(vacancy))
+    name_vacancy, company_name, salary_ot, salary_do, city, url = vacancy
 
     salary = "не указано"
-    if salary_from and salary_to:
-        salary = f"от {salary_from} до {salary_to}"
-    elif salary_from:
-        salary = f"от {salary_from}"
-    elif salary_to:
-        salary = f"до {salary_to}"
-    if salary_currency:
-        salary += f" {salary_currency}"
+    if salary_ot and salary_do:
+        salary = f"от {salary_ot} до {salary_do}"
+    elif salary_ot:
+        salary = f"от {salary_ot}"
+    elif salary_do:
+        salary = f"до {salary_do}"
 
-    schedule_info = schedule if schedule else "не указан"
-    experience_info = experience if experience else "не требуется или не указан"
-
-    return f"*{name}*\nЗарплата: {salary}\nРаботодатель: {employer}\nГород: {area_name}\nГрафик работы: {schedule_info}\nОпыт: {experience_info}\nСсылка на вакансию: {url}"
+    return f"*{name_vacancy}*\nЗарплата: {salary}\nРаботодатель: {company_name}\nГород: {city}\nСсылка на вакансию: {url}"
 
 
 @bot.message_handler(func=lambda message: True)
