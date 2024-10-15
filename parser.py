@@ -39,12 +39,12 @@ def save_to_db(id, company, vacancies, salary_from, salary_to, city, url):
     conn.commit()
 
 
-def parsing_habr(query):
+def parsing_habr():
     page = 1
     id = 1
 
     while True:
-        url = f"https://career.habr.com/vacancies?page={page}&q={query}&type=all"
+        url = f"https://career.habr.com/vacancies?page={page}&type=all"
 
         response = requests.get(url)
 
@@ -90,7 +90,7 @@ def parsing_habr(query):
 
 
 if __name__ == '__main__':
-    schedule.every(3).days.at("00:00").do(parsing_habr("java"))
+    schedule.every(3).days.at("00:00").do(parsing_habr())
     while True:
         schedule.run_pending()
         time.sleep(60)
