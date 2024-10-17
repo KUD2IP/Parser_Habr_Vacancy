@@ -4,7 +4,7 @@ import psycopg2
 import time
 from collections import defaultdict
 
-TOKEN = '7277377935:AAG4QOl0WsSXwzqGLchrQ55kHuuHuqUT6d0'
+TOKEN = 'TOKEN'
 bot = telebot.TeleBot(TOKEN)
 
 DB_CONFIG = {
