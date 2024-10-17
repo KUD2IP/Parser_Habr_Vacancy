@@ -10,6 +10,29 @@ services:
       - "5435:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+
+  parser:
+    build: .
+    image: sha256:d9e970d3c33f
+    container_name: parser
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  bot:
+    build: .
+    image: parser:latest
+    container_name: bot
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
 networks:
   postgres:
     driver: bridge

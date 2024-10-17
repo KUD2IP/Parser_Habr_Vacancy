@@ -9,7 +9,7 @@ DB_CONFIG = {
     'dbname': 'parserdb',
     'user': 'admin',
     'password': 'root',
-    'host': 'localhost',
+    'host': 'host.docker.internal',
     'port': '5435'
 }
 

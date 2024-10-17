@@ -1,0 +1,5 @@
+telebot==0.0.5
+psycopg2==2.9.9
+requests==2.32.3
+schedule==1.2.2
+beautifulsoup4==4.12.3
